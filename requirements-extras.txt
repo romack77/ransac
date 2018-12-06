@@ -1,0 +1,6 @@
+# These deps support running the jupyter notebooks.
+jupyter==1.0.0
+matplotlib==2.2.3
+numpy==1.15.4
+scipy==1.1.0
+scikit-learn=0.20.1

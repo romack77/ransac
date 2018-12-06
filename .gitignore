@@ -1,0 +1,10 @@
+.idea
+.ipynb_checkpoints
+.vagrant
+Vagrantfile
+.venv
+__pycache__
+*~
+*.prof
+build
+ransac.egg-info
