@@ -79,8 +79,11 @@ class TestResidualHistogram(unittest.TestCase):
         self.histo_three_peaks = xransac.ResidualHistogram(
             [2, 0, 2, 0, 3], [0, 10, 20, 30, 40, 50],
             [1, 1, 21, 21, 41, 41, 45], self.models[:7], 1)
-        self.histo_adjacent_peaks = xransac.ResidualHistogram(
+        self.histo_adjacent_equal_peaks = xransac.ResidualHistogram(
             [2, 2, 0], [0, 10, 20, 30], [1, 1, 11, 11], self.models[:4], 1)
+        self.histo_adjacent_stepped_peaks = xransac.ResidualHistogram(
+            [2, 4, 0], [0, 10, 20, 30], [1, 1, 11, 11, 11, 11],
+            self.models[:6], 1)
 
     def test_get_peaks(self):
         self.assertEqual(self.histo_empty.get_peaks(), ([], []))
@@ -90,7 +93,8 @@ class TestResidualHistogram(unittest.TestCase):
         self.assertEqual(
             self.histo_three_peaks.get_peaks(),
             ([0, 2, 4], [2, 2, 3]))
-        self.assertEqual(self.histo_adjacent_peaks.get_peaks(), ([0], [2]))
+        self.assertEqual(self.histo_adjacent_equal_peaks.get_peaks(), ([], []))
+        self.assertEqual(self.histo_adjacent_stepped_peaks.get_peaks(), ([1], [4]))
 
     def test_get_models_in_peaks(self):
         self.assertEqual(
@@ -105,7 +109,9 @@ class TestResidualHistogram(unittest.TestCase):
             self.histo_three_peaks.get_models_in_peaks(),
             [self.models[:2], self.models[2:4], self.models[4:7]])
         self.assertEqual(
-            self.histo_adjacent_peaks.get_models_in_peaks(), [self.models[:2]])
+            self.histo_adjacent_equal_peaks.get_models_in_peaks(), [])
+        self.assertEqual(
+            self.histo_adjacent_stepped_peaks.get_models_in_peaks(), [self.models[2:6]])
 
     def test_get_models_in_peak_centers(self):
         self.assertEqual(
@@ -120,8 +126,10 @@ class TestResidualHistogram(unittest.TestCase):
             self.histo_three_peaks.get_models_in_peak_centers(),
             [self.models[1], self.models[3], self.models[5]])
         self.assertEqual(
-            self.histo_adjacent_peaks.get_models_in_peak_centers(),
-            [self.models[1]])
+            self.histo_adjacent_equal_peaks.get_models_in_peak_centers(), [])
+        self.assertEqual(
+            self.histo_adjacent_stepped_peaks.get_models_in_peak_centers(),
+            [self.models[4]])
 
     def test_equality(self):
         same_peaks = [
@@ -133,4 +141,4 @@ class TestResidualHistogram(unittest.TestCase):
         self.assertEqual(same_peaks[0], same_peaks[1])
         self.assertEqual(same_peaks[1], same_peaks[0])
         self.assertNotEqual(same_peaks[0], diff_peak)
-        self.assertNotEqual(self.histo_one_peak, self.histo_adjacent_peaks)
+        self.assertNotEqual(self.histo_one_peak, self.histo_adjacent_equal_peaks)

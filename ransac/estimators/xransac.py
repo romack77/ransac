@@ -42,7 +42,7 @@ class XRansac(ransac.Ransac):
                 the number of models. This should be small enough to form peaks,
                 but large enough to keep individual peaks distinct.
             min_prominence: Float, only find peaks in the residual histograms with
-                this much vertical distance from their lowest contour line.
+                this much vertical distance from their highest contour line.
         """
         self.residual_histogram_num_bins = residual_histogram_num_bins
         self.min_prominence = min_prominence
@@ -233,7 +233,7 @@ class ResidualHistogram(object):
             # find a peak on the border), so give our histogram some dummy 0 zero edges.
             bordered_counts = np.concatenate((np.zeros(1), self.counts, np.zeros(1)))
             peaks, peak_data = signal.find_peaks(
-                bordered_counts, height=(None, None), prominence=self.min_prominence)
+                bordered_counts, height=(None, None), threshold=self.min_prominence)
             self._peaks_cached = ([p - 1 for p in peaks], list(peak_data['peak_heights']))
         return self._peaks_cached
 
