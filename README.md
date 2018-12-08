@@ -16,8 +16,9 @@ results = my_ransac.run(list_of_data_points)
 print(results.fit, results.inliers, results.outliers)
 ```
 
-While ```ransac.Ransac``` always fits a single model, ```ransac.XRansac``` can be used to detect and
-fit multiple underlying models. The number of models does not need to be specified in advance.
+While ```ransac.Ransac``` always fits a single model, ```ransac.XRansac``` or ```ransac.JLinkage```
+can be used to detect and fit multiple underlying models. The number of models does not need to
+be specified in advance. XRansac is faster but uses additional parameters.
 
 See [this IPython notebook](https://github.com/romack77/ransac/blob/master/ransac/notebooks/RansacExample.ipynb)
 for more complete examples.
@@ -60,7 +61,12 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## References
 
-This paper is the basis of the XRansac variant (no affiliation).
+This paper is the basis of the XRansac variant (no affiliation):
 
 Zhang, W., Kosecká, J.: Nonparametric estimation of multiple structures with outliers. In: Vidal, R., Heyden, A., Ma, Y. (eds.) WDV 2006. LNCS, vol. 4358, pp. 60–74. Springer, Heidelberg (2006)
-[Google Scholar](https://link.springer.com/chapter/10.1007/978-3-540-70932-9_5)
+[PDF](https://link.springer.com/chapter/10.1007/978-3-540-70932-9_5)
+
+This paper is the basis of the J-linkage variant (no affiliation):
+
+Toldo, R., & Fusiello, A. (2008, October). Robust multiple structures estimation with j-linkage. In European conference on computer vision (pp. 537-547). Springer, Berlin, Heidelberg.
+[PDF](https://link.springer.com/chapter/10.1007/978-3-540-88682-2_41)

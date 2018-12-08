@@ -6,7 +6,7 @@ setup(
     version='0.0.1',
     description='Robust model fitting for noisy data.',
     license='MIT',
-    keywords='ransac',
+    keywords='ransac jlinkage',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',

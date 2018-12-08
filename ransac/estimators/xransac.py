@@ -57,7 +57,7 @@ class XRansac(ransac.Ransac):
             data: Numpy array of data points.
 
         Returns:
-            XRansacResult instance with get_model_results() and
+            MultiRansacResult instance with get_model_results() and
             get_global_outliers() methods.
         """
         self._validate_args(data)
@@ -74,7 +74,7 @@ class XRansac(ransac.Ransac):
         best_models = self._select_n_best_models(num_models, residual_histograms)
 
         # Format the results.
-        result = XRansacResult()
+        result = MultiRansacResult()
         all_inliers = []
         all_outliers = []
         for model in best_models:
@@ -301,7 +301,8 @@ class ResidualHistogram(object):
         return hash((self.bins, self.counts, self.residuals, self.models))
 
 
-class XRansacResult(object):
+class MultiRansacResult(object):
+    """Result class for estimators that may fit multiple models."""
 
     def __init__(self):
         self.results = []
