@@ -1,7 +1,7 @@
 
 ifeq ($(OS),Windows_NT)
 SHELL=cmd
-PYTHON=py -3
+PYTHON=python
 VENV_ACTIVATE=.venv\Scripts\activate.bat
 else
 PYTHON=python3
